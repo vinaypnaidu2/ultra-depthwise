@@ -5,6 +5,8 @@ from unet_model import UNet
 from torch.nn.modules.activation import PReLU, Sigmoid
 from unet_model_mini import UNet_mini
 
+
+
 class ConvBlock(nn.Module):
     def __init__(self, inc , outc, kernel_size=3, padding=1, stride=1, 
                  use_bias=True, activation=nn.PReLU, batch_norm=False):
@@ -21,6 +23,7 @@ class ConvBlock(nn.Module):
         if self.activation:
             x = self.activation(x)
         return x
+
 
 class Slice(nn.Module):
     def __init__(self):
@@ -84,8 +87,8 @@ class B_transformer(nn.Module):
         self.apply_coeffs = ApplyCoeffs()
 
         self.u_net = UNet(n_channels=3)
+        # self.u_net_mini = UNet(n_channels=3)
         self.u_net_mini = UNet(n_channels=3)
-        #self.u_net_mini = UNet_mini(n_channels=3)
         self.smooth = nn.PReLU()
         self.fusion = nn.Sequential(
             nn.Conv2d(in_channels=9, out_channels = 16, kernel_size = 3, stride=1, padding=1),

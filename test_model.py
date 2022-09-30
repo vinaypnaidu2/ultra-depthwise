@@ -31,7 +31,7 @@ my_model.to(device)
 
 # my_model.load_state_dict(torch.load("./dehaze.pth", map_location = device)) 
 
-checkpoint = torch.load('./nhhaze_residenh_indoor.pk', map_location=torch.device('cpu'))
+checkpoint = torch.load('./nhhaze_both.pk', map_location=torch.device('cpu'))
 my_model.load_state_dict(checkpoint['model']) 
 my_model.eval()
 
@@ -59,6 +59,6 @@ for image in list_s:
     image_in = Image.open(image).convert('RGB')
     full = tfs_full(image_in).unsqueeze(0).to(device)
     output = my_model(full)
-    save_image(output[0], './test/clear/nhhaze_residenh_indoor_clear{}'.format(image.split('/')[-1]))
+    save_image(output[0], './test/clear/nhhazebothclear{}'.format(image.split('/')[-1]))
 
 
